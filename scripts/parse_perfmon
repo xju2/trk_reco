@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+if __name__ == "__main__":
+    try:
+        import PerfMonComps.PMonSD
+    except ImportError:
+        print("Setup athena first")
+        exit()
+    import os
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Keras train pairs for each layer-pairs')
+    add_arg = parser.add_argument
+    add_arg('input_name', type=str, help='input file name')
+    add_arg('output', type=str, help='output dictionary name')
+
+    args = parser.parse_args()
+    input_name = args.input_name
+    output_name = args.output
+
+    info = PerfMonComps.PMonSD.parse(input_name)
+    import pickle
+    pickle.dump(info, open(output_name+'.pkl', 'wb'))
