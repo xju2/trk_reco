@@ -17,10 +17,16 @@ if __name__ == "__main__":
     newStrategyInfo = Match('My')
     timing_info = Timing()
 
+    ## InDetTrackParticles Info
+    inDetTrackParticlesInfo = Match('InDetTrackParticles ')
+    vtxFinder = Match('InDetPriVxFinder')
+
     with open(input_name) as f:
         for line in f:
             timing_info.parse(line)
             newStrategyInfo.parse(line)
+            inDetTrackParticlesInfo.parse(line)
+            vtxFinder.parse(line)
 
     newStrategyTiming = Timing()
     for line in newStrategyInfo.out().split('\n'):
@@ -30,4 +36,16 @@ if __name__ == "__main__":
 
     df_newStrategy = newStrategyTiming.out()
     df_newStrategy['TimePerEvt'] = df_newStrategy['Total']/1998
-    df_newStrategy.sort_values(by=['TimePerEvt'], ascending=False)
+    print("SiSpTrackFinder Timing")
+    print(df_newStrategy.sort_values(by=['TimePerEvt'], ascending=False))
+
+    # InDetector Timing
+    df = timing_info.out()
+    print("All Algorithms")
+    print(df.sort_values(by=['Total'], ascending=False).head(15))
+
+    # InDetTrackParticles
+    print(inDetTrackParticlesInfo.out())
+
+    # Vertex Finder()
+    print(vtxFinder.out())

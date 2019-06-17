@@ -19,7 +19,8 @@ setup(
     url="https://github.com/xju2/trk_reco",
     packages=find_packages(),
     install_requires=[
-        "pandas"
+        "pandas",
+        "numpy",
     ],
     classifiers=[
         "Programming Language :: Python :: 2.7.13",
